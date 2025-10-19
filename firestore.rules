@@ -1,0 +1,36 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // ユーザーが認証されているかチェック
+    // IAP を使用する場合、request.auth は利用できないため、
+    // アプリケーション層でユーザー ID の検証を行う必要があります
+
+    // rounds コレクション
+    match /rounds/{roundId} {
+      // 読み取り: 自分のラウンドのみ
+      allow read: if resource.data.userId == request.auth.uid;
+
+      // 作成: 自分の userId を持つドキュメントのみ
+      allow create: if request.resource.data.userId == request.auth.uid
+                    && request.resource.data.keys().hasAll([
+                      'userId', 'type', 'distance', 'endsCount',
+                      'arrowsPerEnd', 'date', 'totalScore',
+                      'averageScore', 'ends', 'createdAt', 'updatedAt'
+                    ]);
+
+      // 更新: 自分のラウンドのみ、userId は変更不可
+      allow update: if resource.data.userId == request.auth.uid
+                    && request.resource.data.userId == request.auth.uid;
+
+      // 削除: 自分のラウンドのみ
+      allow delete: if resource.data.userId == request.auth.uid;
+    }
+
+    // users コレクション（将来的にユーザープロファイルを保存する場合）
+    match /users/{userId} {
+      // 自分のユーザー情報のみアクセス可能
+      allow read, write: if request.auth.uid == userId;
+    }
+  }
+}
