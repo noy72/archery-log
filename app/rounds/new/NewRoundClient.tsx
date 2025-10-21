@@ -2,7 +2,6 @@
 
 import { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
 import { initializeRound } from './actions';
 
 interface RoundFormData {
@@ -58,17 +57,7 @@ export default function NewRoundClient() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gray-900">新しい記録</h1>
-          <Link href="/" className="text-sm text-blue-600 hover:text-blue-800">
-            ホームに戻る
-          </Link>
-        </div>
-      </header>
-
-      <main className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <main className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <form onSubmit={handleSubmit} className="bg-white shadow rounded-lg p-6 space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -203,22 +192,13 @@ export default function NewRoundClient() {
             />
           </div>
 
-          <div className="flex gap-4">
-            <Link
-              href="/"
-              className="flex-1 py-3 px-4 border border-gray-300 rounded-lg text-center font-medium text-gray-700 hover:bg-gray-50"
-            >
-              キャンセル
-            </Link>
-            <button
-              type="submit"
-              className="flex-1 py-3 px-4 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700"
-            >
-              記録を開始
-            </button>
-          </div>
+          <button
+            type="submit"
+            className="w-full py-3 px-4 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700"
+          >
+            記録を開始
+          </button>
         </form>
       </main>
-    </div>
   );
 }

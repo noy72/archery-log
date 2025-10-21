@@ -161,13 +161,13 @@ export default function ScoreInputClient({ initialRound, roundId }: ScoreInputCl
   const currentEndTotal = currentScores.reduce((sum, s) => sum + s.numericValue, 0);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow sticky top-0 z-10">
+    <>
+      <div className="bg-white shadow sticky top-16 z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           <div className="flex justify-between items-center mb-2">
-            <h1 className="text-xl font-bold text-gray-900">
-              {round.distance}m ラウンド
-            </h1>
+            <div className="text-lg font-semibold text-gray-900">
+              {round.distance}m
+            </div>
             <div className="text-sm text-gray-600">
               {currentEndIndex + 1} / {round.endsCount} エンド
             </div>
@@ -187,7 +187,7 @@ export default function ScoreInputClient({ initialRound, roundId }: ScoreInputCl
             </div>
           </div>
         </div>
-      </header>
+      </div>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="bg-white rounded-lg shadow p-6 mb-6">
@@ -301,6 +301,6 @@ export default function ScoreInputClient({ initialRound, roundId }: ScoreInputCl
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

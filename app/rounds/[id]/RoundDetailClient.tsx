@@ -13,6 +13,7 @@ interface RoundDetailClientProps {
 export default function RoundDetailClient({ round }: RoundDetailClientProps) {
   const router = useRouter();
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [showDeleteButton, setShowDeleteButton] = useState(false);
 
   const handleDelete = async () => {
     try {
@@ -37,27 +38,29 @@ export default function RoundDetailClient({ round }: RoundDetailClientProps) {
   const isRoundComplete = round.ends.every(end => end.scores.length > 0);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-gray-900">記録詳細</h1>
-            <div className="flex gap-4">
-              <Link href="/rounds" className="text-sm text-blue-600 hover:text-blue-800">
-                一覧に戻る
-              </Link>
+    <>
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="flex justify-end mb-4">
+          <button
+            onClick={() => setShowDeleteButton(!showDeleteButton)}
+            className="text-sm text-gray-600 hover:text-gray-900"
+          >
+            ⋮
+          </button>
+          {showDeleteButton && (
+            <div className="absolute mt-8 bg-white rounded-lg shadow-lg border border-gray-200 py-1">
               <button
-                onClick={() => setShowDeleteConfirm(true)}
-                className="text-sm text-red-600 hover:text-red-800"
+                onClick={() => {
+                  setShowDeleteButton(false);
+                  setShowDeleteConfirm(true);
+                }}
+                className="block w-full px-4 py-2 text-left text-sm text-red-600 hover:bg-red-50"
               >
                 削除
               </button>
             </div>
-          </div>
+          )}
         </div>
-      </header>
-
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="bg-white rounded-lg shadow p-6 mb-6">
           <div className="grid md:grid-cols-2 gap-6">
             <div>
@@ -181,6 +184,6 @@ export default function RoundDetailClient({ round }: RoundDetailClientProps) {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

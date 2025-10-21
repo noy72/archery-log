@@ -1,5 +1,7 @@
 import { redirect } from 'next/navigation';
 import { fetchRound } from '@/lib/actions';
+import { getCurrentUser } from '@/lib/auth';
+import Header from '@/components/Header';
 import ScoreInputClient from './ScoreInputClient';
 
 interface ScorePageProps {
@@ -8,17 +10,21 @@ interface ScorePageProps {
 
 export default async function ScorePage({ params }: ScorePageProps) {
   const round = await fetchRound(params.id);
+  const user = await getCurrentUser();
 
   if (!round) {
     redirect('/rounds/new');
   }
 
-  // 最初の空のエンドを見つける
   const firstEmptyEndIndex = round.ends.findIndex(end => end.scores.length === 0);
   if (firstEmptyEndIndex === -1) {
-    // 全エンドが完了している場合は詳細ページに遷移
     redirect(`/rounds/${params.id}`);
   }
 
-  return <ScoreInputClient initialRound={round} roundId={params.id} />;
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <Header title="点数入力" user={user || undefined} />
+      <ScoreInputClient initialRound={round} roundId={params.id} />
+    </div>
+  );
 }

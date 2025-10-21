@@ -1,9 +1,12 @@
 import Link from 'next/link';
 import { fetchRounds } from '@/lib/actions';
+import { getCurrentUser } from '@/lib/auth';
 import { Round } from '@/lib/types';
+import Header from '@/components/Header';
 
 export default async function RoundsPage() {
   const rounds = await fetchRounds();
+  const user = await getCurrentUser();
 
   const formatDate = (date: Date) => {
     return new Intl.DateTimeFormat('ja-JP', {
@@ -21,14 +24,7 @@ export default async function RoundsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <h1 className="text-2xl font-bold text-gray-900">記録履歴</h1>
-          <Link href="/" className="text-sm text-blue-600 hover:text-blue-800">
-            ホームに戻る
-          </Link>
-        </div>
-      </header>
+      <Header title="記録履歴" user={user || undefined} />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {rounds.length === 0 ? (
