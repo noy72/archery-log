@@ -2,6 +2,8 @@ import { getCurrentUser } from '@/lib/auth';
 import Link from 'next/link';
 import Header from '@/components/Header';
 
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   const user = await getCurrentUser();
 

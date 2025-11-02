@@ -4,6 +4,8 @@ import { getCurrentUser } from '@/lib/auth';
 import { Round } from '@/lib/types';
 import Header from '@/components/Header';
 
+export const dynamic = 'force-dynamic';
+
 export default async function RoundsPage() {
   const rounds = await fetchRounds();
   const user = await getCurrentUser();

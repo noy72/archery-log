@@ -2,6 +2,8 @@ import { getCurrentUser } from '@/lib/auth';
 import Header from '@/components/Header';
 import NewRoundClient from './NewRoundClient';
 
+export const dynamic = 'force-dynamic';
+
 export default async function NewRoundPage() {
   const user = await getCurrentUser();
 

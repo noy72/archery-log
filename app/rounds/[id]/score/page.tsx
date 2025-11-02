@@ -4,6 +4,8 @@ import { getCurrentUser } from '@/lib/auth';
 import Header from '@/components/Header';
 import ScoreInputClient from './ScoreInputClient';
 
+export const dynamic = 'force-dynamic';
+
 interface ScorePageProps {
   params: { id: string };
 }

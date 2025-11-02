@@ -3,6 +3,8 @@ import { getCurrentUser } from '@/lib/auth';
 import Header from '@/components/Header';
 import StatsClient from './StatsClient';
 
+export const dynamic = 'force-dynamic';
+
 export default async function StatsPage() {
   const rounds = await fetchRounds();
   const user = await getCurrentUser();
